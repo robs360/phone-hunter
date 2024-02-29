@@ -13,7 +13,8 @@
     <h1 class="text-3xl text-center font-medium">Phone Hunter</h1>
     <div class="flex justify-center my-10 gap-4">
         <input type="text" name="" id="inp" placeholder="Seach your phone" class="border-2 border-black p-3 rounded-lg">
-        <button onclick="searchPhone();spinner();" class="rounded-lg bg-blue-400 p-3">Search</button>
+        <button onclick="searchPhone();spinner();" class="rounded-lg btn btn-primary p-3 text-xl font-medium">
+            Search</button>
     </div>
 
     <div class="mt-20 text-center hidden" id="spin">
@@ -29,7 +30,7 @@
                     <h2 class="card-title">Shoes!</h2>
                     <p>If a dog chews shoes whose shoes does he choose?</p>
                     <div class="card-actions justify-end">
-                        <button class="btn btn-primary">Buy Now</button>
+                        <button class="btn btn-primary">Show details</button>
                     </div>
                 </div>
             </div> -->
@@ -37,6 +38,9 @@
     
         </div>
     </div>
+      <div class="hidden text-center" id="show">
+          <button class="btn btn-primary rounded-lg py-2 px-7 text-[20px] font-medium">Show All Phone</button>
+      </div>
 
     <script>
         
@@ -47,12 +51,18 @@
         }
 
         function display(data) {
-            const arr = data.data;
-            console.log(data.data);
-
-            // if(arr.length>9){
-            //     arr=arr.slice(0,9);
-            // }
+            let arr = data.data;
+            console.log(arr.length);
+            
+            if(arr.length>12){
+                arr=arr.slice(0,9);
+                const show=document.getElementById('show');
+                show.classList.remove('hidden');
+            }
+            else{
+                const show=document.getElementById('show');
+                show.classList.add('hidden');
+            }
             const card = document.getElementById('card-container');
             card.innerHTML=``;
             arr.forEach(phone => {
@@ -91,6 +101,10 @@
         function spinnerStop(){
             const loader=document.getElementById('spin');
             loader.classList.add('hidden');
+        }
+
+        function showDetails(){
+             
         }
      
     </script>
