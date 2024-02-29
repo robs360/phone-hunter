@@ -34,16 +34,36 @@
                     </div>
                 </div>
             </div> -->
-    
-    
+
+
         </div>
     </div>
-      <div class="hidden text-center" id="show">
-          <button class="btn btn-primary rounded-lg py-2 px-7 text-[20px] font-medium">Show All Phone</button>
-      </div>
+    <div class="hidden text-center" id="show">
+        <button class="btn btn-primary rounded-lg py-2 px-7 text-[20px] font-medium">Show All Phone</button>
+    </div>
+
+    <!-- Open the modal using ID.showModal() method -->
+   
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+            
+            <figure>
+                <img src="" alt="">
+            </figure>
+            <h3 class="font-bold text-lg text-center" id="brand"></h3>
+            <h3 class="font-bold text-lg text-center" id="name"></h3>
+            <p class="py-4">Press ESC key or click the button below to close</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 
     <script>
-        
+
         const getApi = (inpValue) => {
             fetch(`https://openapi.programming-hero.com/api/phones?search=${inpValue}`)
                 .then(res => res.json())
@@ -52,23 +72,23 @@
 
         function display(data) {
             let arr = data.data;
-            console.log(arr.length);
-            
-            if(arr.length>12){
-                arr=arr.slice(0,9);
-                const show=document.getElementById('show');
+            // console.log(arr.length);
+
+            if (arr.length > 12) {
+                arr = arr.slice(0, 9);
+                const show = document.getElementById('show');
                 show.classList.remove('hidden');
             }
-            else{
-                const show=document.getElementById('show');
+            else {
+                const show = document.getElementById('show');
                 show.classList.add('hidden');
             }
             const card = document.getElementById('card-container');
-            card.innerHTML=``;
+            card.innerHTML = ``;
             arr.forEach(phone => {
                 const div = document.createElement('div');
                 div.classList = `card bg-base-100 shadow-xl`;
-                
+
                 div.innerHTML = `
 
               <figure><img src="${phone.image}" alt="Shoes" /></figure>
@@ -76,7 +96,7 @@
                   <h2 class="card-title mx-auto">${phone.phone_name}</h2>
                   <p>${phone.phone_name} is the smartest phone</p>
                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Show Details</button>
+                    <button class="btn btn-primary" onclick="showDetails('${phone.slug}')">Show Details</button>
                  </div>
               </div>
                      
@@ -87,26 +107,38 @@
 
         }
 
-        function searchPhone(){
-            const inp=document.getElementById('inp');
-            const inpValue=inp.value;
+        function searchPhone() {
+            const inp = document.getElementById('inp');
+            const inpValue = inp.value;
             getApi(inpValue);
         }
 
-        function spinner(){
-            const loader=document.getElementById('spin');
+        function spinner() {
+            const loader = document.getElementById('spin');
             loader.classList.remove('hidden');
         }
 
-        function spinnerStop(){
-            const loader=document.getElementById('spin');
+        function spinnerStop() {
+            const loader = document.getElementById('spin');
             loader.classList.add('hidden');
         }
 
-        function showDetails(){
-             
+        function showDetails(id) {
+            console.log(id);
+            fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+                .then(res => res.json())
+                .then(data => showMore(data))
         }
-     
+
+        function showMore(data) {
+            console.log(data);
+            const brand=document.getElementById('brand');
+            brand.innerText=data.data.brand;
+            const Name=document.getElementById('name');
+            Name.innerText=data.data.name
+            my_modal_5.showModal();
+        }
+
     </script>
 </body>
 
