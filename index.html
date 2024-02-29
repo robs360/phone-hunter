@@ -49,6 +49,10 @@
         function display(data) {
             const arr = data.data;
             console.log(data.data);
+
+            // if(arr.length>9){
+            //     arr=arr.slice(0,9);
+            // }
             const card = document.getElementById('card-container');
             card.innerHTML=``;
             arr.forEach(phone => {
@@ -60,9 +64,9 @@
               <figure><img src="${phone.image}" alt="Shoes" /></figure>
               <div class="card-body">
                   <h2 class="card-title mx-auto">${phone.phone_name}</h2>
-                  <p>If a dog chews shoes whose shoes does he choose?</p>
+                  <p>${phone.phone_name} is the smartest phone</p>
                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Buy Now</button>
+                    <button class="btn btn-primary">Show Details</button>
                  </div>
               </div>
                      
