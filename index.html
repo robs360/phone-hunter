@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <h1 class="text-3xl text-center font-medium">Phone Hunter</h1>
+    <div class="flex justify-center my-10 gap-4">
+        <input type="text" name="" id="inp" placeholder="Seach your phone" class="border-2 border-black p-3 rounded-lg">
+        <button onclick="searchPhone();spinner();" class="rounded-lg bg-blue-400 p-3">Search</button>
+    </div>
+
+    <div class="mt-20 text-center hidden" id="spin">
+        <span class="loading loading-spinner loading-lg"></span>
+    </div>
+    <div class="flex justify-center items-center">
+
+        <div id="card-container" class="grid grid-cols-1 md: grid-cols-2 lg:grid-cols-3 gap-4 w-[94%] my-20">
+            <!-- <div class="card w-96 bg-base-100 shadow-xl">
+                <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title">Shoes!</h2>
+                    <p>If a dog chews shoes whose shoes does he choose?</p>
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary">Buy Now</button>
+                    </div>
+                </div>
+            </div> -->
+    
+    
+        </div>
+    </div>
+
+    <script>
+        
+        const getApi = (inpValue) => {
+            fetch(`https://openapi.programming-hero.com/api/phones?search=${inpValue}`)
+                .then(res => res.json())
+                .then(data => display(data))
+        }
+
+        function display(data) {
+            const arr = data.data;
+            console.log(data.data);
+            const card = document.getElementById('card-container');
+            card.innerHTML=``;
+            arr.forEach(phone => {
+                const div = document.createElement('div');
+                div.classList = `card bg-base-100 shadow-xl`;
+                
+                div.innerHTML = `
+
+              <figure><img src="${phone.image}" alt="Shoes" /></figure>
+              <div class="card-body">
+                  <h2 class="card-title mx-auto">${phone.phone_name}</h2>
+                  <p>If a dog chews shoes whose shoes does he choose?</p>
+                 <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Buy Now</button>
+                 </div>
+              </div>
+                     
+                `;
+                spinnerStop();
+                card.appendChild(div);
+            });
+
+        }
+
+        function searchPhone(){
+            const inp=document.getElementById('inp');
+            const inpValue=inp.value;
+            getApi(inpValue);
+        }
+
+        function spinner(){
+            const loader=document.getElementById('spin');
+            loader.classList.remove('hidden');
+        }
+
+        function spinnerStop(){
+            const loader=document.getElementById('spin');
+            loader.classList.add('hidden');
+        }
+     
+    </script>
+</body>
+
+</html>
