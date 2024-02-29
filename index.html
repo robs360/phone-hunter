@@ -45,18 +45,21 @@
     <!-- Open the modal using ID.showModal() method -->
    
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
+        <div class="modal-box relative">
             
-            <figure>
-                <img src="" alt="">
-            </figure>
-            <h3 class="font-bold text-lg text-center" id="brand"></h3>
-            <h3 class="font-bold text-lg text-center" id="name"></h3>
-            <p class="py-4">Press ESC key or click the button below to close</p>
-            <div class="modal-action">
+    
+            <h3 class="font-medium text-[18px] text-center" id="brand"></h3>
+            <h3 class="font-medium text-[18px] text-center" id="name"></h3>
+             <h1 class="font-medium text-[18px] text-center" id="release"></h1>
+             <h1 class="text-[18px] text-center" id="display"></h1>
+             <h1 class="text-center" id="store"></h1>
+             <h1 class="text-center" id="sen"></h1>
+
+            <p class="py-4 text-center font-medium">It can play a vital role to make your communication life easier</p>
+            <div class="modal-action ">
                 <form method="dialog">
                     <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
+                    <button class="btn">close</button>
                 </form>
             </div>
         </div>
@@ -135,7 +138,15 @@
             const brand=document.getElementById('brand');
             brand.innerText=data.data.brand;
             const Name=document.getElementById('name');
-            Name.innerText=data.data.name
+            Name.innerText=data.data.name;
+            const relDate=document.getElementById('release');
+            relDate.innerText=data.data.releaseDate;
+            const store=document.getElementById('store');
+            store.innerText=data.data.mainFeatures.storage;
+            const Display=document.getElementById('display');
+            Display.innerText=data.data.mainFeatures.displaySize;
+            const sensibility=document.getElementById('sen');
+            sensibility.innerText=data.data.mainFeatures.sensors;
             my_modal_5.showModal();
         }
 
